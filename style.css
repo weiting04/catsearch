@@ -105,3 +105,13 @@ body {
   border-radius: 12px;
   margin-bottom: 8px;
 }
+.load-more-btn {
+  width: fit-content;
+  margin: 0 auto;
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #999;
+  display: inline-flex;
+  cursor: pointer;
+}
