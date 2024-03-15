@@ -64,6 +64,7 @@ body {
   position: absolute;
   /* border-color: #fff;
   border: 1px solid #ccc; */
+  background-color: white;
   top: 100%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 2);
   border-radius: 12px;
