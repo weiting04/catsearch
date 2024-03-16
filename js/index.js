@@ -6,6 +6,9 @@ import {
   renderOptions,
   clearimage,
   addSelectOrderListener,
+  loadmorepicbtn,
+  disableloadmore_btn,
+  enableloadmore_btn,
 } from "./dom.js";
 const catlist = [];
 let page = 1;
@@ -18,18 +21,29 @@ async function loadcat(limit, page, order, breedIds = []) {
   console.log(list);
   catlist.push(...list);
   rendercats(list);
-  console.log(catlist);
+  if (list.length < limit) {
+    disableloadmore_btn();
+    return false;
+  }
+  return true;
 }
 function addListeners() {
   addDropdownListener();
   addCloseDropdownListener();
-  addSelectOrderListener((e) => {
+  addSelectOrderListener(async (e) => {
     order = e.target.value;
+    enableloadmore_btn();
     clearimage();
-    loadcat(pagesize, page, order, selectedoptions);
+    page = 1;
+    const nextpage = await loadcat(pagesize, page, order, selectedoptions);
+    if (nextpage) page++;
+  });
+  loadmorepicbtn(async () => {
+    const nextpage = await loadcat(pagesize, page, order, selectedoptions);
+    if (nextpage) page++;
   });
 }
-function handleBreedOptionChange(e) {
+async function handleBreedOptionChange(e) {
   const changeoption = e.target;
   if (changeoption.checked) {
     selectedoptions.push(changeoption.value);
@@ -38,9 +52,11 @@ function handleBreedOptionChange(e) {
       (item) => item !== changeoption.value
     );
   }
-  console.log(selectedoptions);
+  enableloadmore_btn();
   clearimage();
-  loadcat(pagesize, page, order, selectedoptions);
+  page = 1;
+  const nextpage = await loadcat(pagesize, page, order, selectedoptions);
+  if (nextpage) page++;
 }
 async function loadBreedOptions() {
   const breeds = await fetchBreed();
@@ -48,6 +64,7 @@ async function loadBreedOptions() {
 }
 document.addEventListener("DOMContentLoaded", async () => {
   loadBreedOptions();
-  await loadcat(pagesize, page, order, selectedoptions);
+  const nextpage = await loadcat(pagesize, page, order, selectedoptions);
+  if (nextpage) page++;
   addListeners();
 });

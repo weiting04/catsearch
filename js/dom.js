@@ -52,3 +52,15 @@ export function addSelectOrderListener(handler) {
   const orderselect = document.getElementById("order-select");
   orderselect.addEventListener("change", handler);
 }
+export function loadmorepicbtn(handler) {
+  const loadmore_btn = document.getElementById("load-more");
+  loadmore_btn.addEventListener("click", handler);
+}
+export function disableloadmore_btn() {
+  const loadmore_btn = document.getElementById("load-more");
+  loadmore_btn.disabled = true;
+}
+export function enableloadmore_btn() {
+  const loadmore_btn = document.getElementById("load-more");
+  loadmore_btn.disabled = false;
+}
