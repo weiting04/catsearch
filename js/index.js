@@ -9,6 +9,7 @@ import {
   loadmorepicbtn,
   disableloadmore_btn,
   enableloadmore_btn,
+  closedrawer,
 } from "./dom.js";
 const catlist = [];
 let page = 1;
@@ -28,6 +29,7 @@ async function loadcat(limit, page, order, breedIds = []) {
   return true;
 }
 function addListeners() {
+  closedrawer();
   addDropdownListener();
   addCloseDropdownListener();
   addSelectOrderListener(async (e) => {
