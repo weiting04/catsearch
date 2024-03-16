@@ -48,3 +48,7 @@ export function clearimage() {
     col.innerHTML = "";
   });
 }
+export function addSelectOrderListener(handler) {
+  const orderselect = document.getElementById("order-select");
+  orderselect.addEventListener("change", handler);
+}

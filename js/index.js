@@ -5,6 +5,7 @@ import {
   addDropdownListener,
   renderOptions,
   clearimage,
+  addSelectOrderListener,
 } from "./dom.js";
 const catlist = [];
 let page = 1;
@@ -22,6 +23,11 @@ async function loadcat(limit, page, order, breedIds = []) {
 function addListeners() {
   addDropdownListener();
   addCloseDropdownListener();
+  addSelectOrderListener((e) => {
+    order = e.target.value;
+    clearimage();
+    loadcat(pagesize, page, order, selectedoptions);
+  });
 }
 function handleBreedOptionChange(e) {
   const changeoption = e.target;
